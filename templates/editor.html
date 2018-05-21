@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_content %}
+    <div class="container">
+    <div class="section">
+        <h4>编辑文章 </h4>
+        <div id="editor"></div>
+    </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="//unpkg.com/wangeditor/release/wangEditor.min.js"></script>
+    <script src="{% static 'assets/js/article.js' %}"></script>
+
+{% endblock %}
