@@ -5,8 +5,9 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.template.defaultfilters import slugify
 from django.urls import reverse
+
+from article.helper.helper import unique_slugify
 
 
 def get_user_profile_path(instance, filename):
@@ -67,7 +68,7 @@ class Article(models.Model):
         ordering = ['-last_modified_time']
 
     # Slug
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=200, unique=True)
 
     # Author
     author = models.ForeignKey('Profile', on_delete=models.CASCADE)
@@ -110,8 +111,10 @@ class Article(models.Model):
                                  on_delete=models.SET_NULL)
     #on_delete=models.SET_NULL表示删除某个    # 分类（category）后该分类下所有的Article的外键设为null（空）
 
-    def slug_title(self):
-        return slugify(self.title)
+    def save(self, *args, **kwargs):
+        # Slugify the images
+        self.slug = unique_slugify(self, self.title)
+        super().save(*args, **kwargs)  # call Django's save()
 
 
 class Category(models.Model):
@@ -139,30 +142,38 @@ class Labels(models.Model):
 
 def get_user_image_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'user_{0}/images/{1}/{2}'.format(instance.user.id, datetime.now().strftime('%Y/%m/%d'),filename)
+    return 'user_{0}/images/{1}/{2}'.format(instance.profile.id, datetime.now().strftime('%Y/%m/%d'), filename)
 
 
 class Images(models.Model):
     """
     For images related to the articles
     """
-    images = models.ImageField(upload_to=get_user_image_path)
-    profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
-    slug = models.SlugField()
+    image = models.ImageField(upload_to=get_user_image_path)
+    profile = models.ForeignKey(BaseProfile, on_delete=models.CASCADE)
+    slug = models.SlugField(max_length=50, unique=True, allow_unicode=True)
 
     def __str__(self):
-        return self.images.name
+        return self.image.name
+
+    def save(self, *args, **kwargs):
+        # Slugify the images
+        unique_slugify(self, self.image.name)
+        super().save(*args, **kwargs)  # call Django's save()
+
+    def get_image_url(self):
+        return self.image.url
 
     def get_absolute_url(self):
-        return reverse('image', kwargs={'pk': self.pk})
+        return reverse('image', kwargs={'slug': self.slug})
 
 
 class ArticleLiked(models.Model):
     """
     Store relation that user liked articles
     """
-    article = models.ForeignKey('Article', on_delete=models.CASCADE)
-    profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    profile = models.ForeignKey(BaseProfile, on_delete=models.CASCADE)
 
 
 class ArticleStored(models.Model):
@@ -171,7 +182,6 @@ class ArticleStored(models.Model):
     """
     article = models.ForeignKey('Article', on_delete=models.CASCADE)
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
-
 
 
 class Stocks(models.Model):

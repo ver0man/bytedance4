@@ -35,5 +35,8 @@ urlpatterns = [
     path('articles/editor/image_upload/', ImageUploadView.as_view(), name='editor_image_upload'),
     path('articles/save/', article_save, name='article_save'),
 
+    # For images,
+    path('images/<slug:slug>/', image_detail, name='image'),
+
 
 ]

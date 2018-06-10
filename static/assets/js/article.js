@@ -25,15 +25,11 @@ $(document).ready(function () {
     // };
 
     editor.customConfig.uploadImgServer = 'image_upload/';
-    // editor.customConfig.uploadImgParams = {
-    //     // 如果版本 <=v3.1.0 ，属性值会自动进行 encode ，此处无需 encode
-    //     // 如果版本 >=v3.1.1 ，属性值不会自动 encode ，如有需要自己手动 encode
-    //     images: 'test',
-    // };
+    // For django requirement
     editor.customConfig.uploadImgHeaders = {
         'X-CSRFToken': csrftoken,
     };
-    editor.customConfig.uploadFileName = 'image';
+    // editor.customConfig.uploadFileName = 'image';
     // editor.customConfig.uploadImgHooks = {
     //     before: function (xhr, editor, files) {
     //         // 图片上传之前触发

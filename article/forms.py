@@ -13,7 +13,7 @@ class UserRegisterForm(UserCreationForm):
 class ImageUploadForm(ModelForm):
     class Meta:
         model = Images
-        fields = ['images', ]
+        fields = ['image', ]
 
 
 class ArticleSaveForm(ModelForm):
