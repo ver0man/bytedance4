@@ -1,9 +1,12 @@
-from django.db import models
-from django.contrib.auth.models import AbstractUser
-from django.conf import settings
 from datetime import datetime
+
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
+from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.template.defaultfilters import slugify
+from django.urls import reverse
 
 
 def get_user_profile_path(instance, filename):
@@ -63,6 +66,9 @@ class Article(models.Model):
         # descent order of articles' last modified time
         ordering = ['-last_modified_time']
 
+    # Slug
+    slug = models.SlugField()
+
     # Author
     author = models.ForeignKey('Profile', on_delete=models.CASCADE)
 
@@ -104,6 +110,9 @@ class Article(models.Model):
                                  on_delete=models.SET_NULL)
     #on_delete=models.SET_NULL表示删除某个    # 分类（category）后该分类下所有的Article的外键设为null（空）
 
+    def slug_title(self):
+        return slugify(self.title)
+
 
 class Category(models.Model):
     """
@@ -139,9 +148,13 @@ class Images(models.Model):
     """
     images = models.ImageField(upload_to=get_user_image_path)
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
+    slug = models.SlugField()
 
     def __str__(self):
         return self.images.name
+
+    def get_absolute_url(self):
+        return reverse('image', kwargs={'pk': self.pk})
 
 
 class ArticleLiked(models.Model):
