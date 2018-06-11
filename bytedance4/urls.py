@@ -25,15 +25,17 @@ urlpatterns = [
     path('accounts/login/', user_login, name='user_login'),
     path('accounts/register/', user_register, name='user_register'),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='user_logout'),
+
     # For listing all the articles
-    path('', IndexView.as_view(), name='index'),
+    path('', ArticleListView.as_view(), name='index'),
 
     # For articles
-    path('articles/', ArticleView.as_view()),
+    path('articles/<slug:slug>/', ArticleDetailView.as_view(), name='article-detail'),
+
     # For User Editing
     path('articles/editor/', EditorView.as_view(), name='editor'),
     path('articles/editor/image_upload/', ImageUploadView.as_view(), name='editor_image_upload'),
-    path('articles/save/', article_save, name='article_save'),
+    path('articles/save/', ArticleSaveView.as_view(), name='article_save'),
 
     # For images,
     path('images/<slug:slug>/', image_detail, name='image'),

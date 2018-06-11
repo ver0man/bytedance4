@@ -68,10 +68,10 @@ class Article(models.Model):
         ordering = ['-last_modified_time']
 
     # Slug
-    slug = models.SlugField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
 
     # Author
-    author = models.ForeignKey('Profile', on_delete=models.CASCADE)
+    author = models.ForeignKey(BaseProfile, on_delete=models.CASCADE)
 
     # Titles & Body
     # TODO: Modify later as RTF format.. how to work with wangEditor format
@@ -109,12 +109,16 @@ class Article(models.Model):
     category = models.ForeignKey('Category', verbose_name='category',
                                  null=True,
                                  on_delete=models.SET_NULL)
-    #on_delete=models.SET_NULL表示删除某个    # 分类（category）后该分类下所有的Article的外键设为null（空）
 
     def save(self, *args, **kwargs):
         # Slugify the images
-        self.slug = unique_slugify(self, self.title)
+        unique_slugify(self, self.title)
+        # Get abstract
+        self.abstract = self.body[:100]
         super().save(*args, **kwargs)  # call Django's save()
+
+    def get_absolute_url(self):
+        return reverse('article-detail', kwargs={'slug': self.slug})
 
 
 class Category(models.Model):

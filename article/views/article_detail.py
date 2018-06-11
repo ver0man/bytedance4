@@ -1,11 +1,18 @@
-from django.views.generic import TemplateView
+from django.views.generic import DetailView
+
+from article.models import Article
 
 
 # Create your views here.
 
 
-class ArticleView(TemplateView):
-    template_name = 'article.html'
+class ArticleDetailView(DetailView):
+    model = Article
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['now'] = timezone.now()
+        return context
 
 
 def article_list(request):
