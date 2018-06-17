@@ -6,6 +6,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
+from unidecode import unidecode
 
 from article.helper.helper import unique_slugify
 
@@ -60,7 +61,7 @@ class Article(models.Model):
 
     def __str__(self):
         # For display
-        return self.title
+        return unidecode(self.title)
 
     class Meta:
         # Meta class.
@@ -113,10 +114,15 @@ class Article(models.Model):
 
     def save(self, *args, **kwargs):
         # Slugify the images
-        unique_slugify(self, self.title)
+        unique_slugify(self, unidecode(self.title))
         # Get abstract
         self.abstract = self.body[:100]
         super().save(*args, **kwargs)  # call Django's save()
+
+    def clean(self):
+        # Clean the format, some non-html code into html
+        # Replace the &lt; and &gt;
+        self.body = self.body.replace('&lt;', '<').replace('&gt;', '>').replace('&amp;', '&')
 
     def get_absolute_url(self):
         return reverse('article-detail', kwargs={'slug': self.slug})
@@ -163,7 +169,7 @@ class Images(models.Model):
 
     def save(self, *args, **kwargs):
         # Slugify the images
-        unique_slugify(self, self.image.name)
+        unique_slugify(self, unidecode(self.image.name))
         super().save(*args, **kwargs)  # call Django's save()
 
     def get_image_url(self):

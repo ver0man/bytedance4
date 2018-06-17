@@ -42,7 +42,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/articles/save/',
+            url: '/editor/save/',
             data: data,
             success: function (result) {
                 M.toast({
@@ -51,7 +51,6 @@ $(document).ready(function () {
                     inDuration: 300,
                     outDuration: 375,
                 })
-                // location.href = '/articles/'
             },
             fail: function (result) {
                 M.toast({

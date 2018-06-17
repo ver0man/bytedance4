@@ -9,9 +9,7 @@
                 <h2 class="center brown-text">{{ article.title }}</h2>
                 <h5 class="center">{{ article.author }}</h5>
 
-                {{ article.body }}
-                <p class="flow-text">{{ article.body }}
-                </p>
+                {{ article.body | safe }}
                 <blockquote>
                     哈哈 .
                 </blockquote>
