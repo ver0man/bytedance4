@@ -74,8 +74,9 @@ class Article(models.Model):
     author = models.ForeignKey(BaseProfile, on_delete=models.CASCADE)
 
     # Titles & Body
-    # TODO: Modify later as RTF format.. how to work with wangEditor format
+    # TODO: How to display html? how to work with wangEditor format
     title = models.CharField('title', max_length=70)
+    cover = models.ForeignKey('Images', on_delete=models.SET_NULL, null=True, blank=True)
     body = models.TextField('body')
 
     # Timestamps

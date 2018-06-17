@@ -138,3 +138,10 @@ MEDIA_URL = '/media/'
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# Email System
+EMAIL_HOST = 'localhost'  # Default Value
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+MANAGERS = ()
+ADMINS = (('Chumeng', 'chumeng.zheng@gmail.com'),)

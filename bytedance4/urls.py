@@ -22,6 +22,7 @@ from article.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     # For user authentication
+    path('accounts/', user_detail, name='user_detail'),
     path('accounts/login/', user_login, name='user_login'),
     path('accounts/register/', user_register, name='user_register'),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='user_logout'),
@@ -33,8 +34,8 @@ urlpatterns = [
     path('articles/<slug:slug>/', ArticleDetailView.as_view(), name='article-detail'),
 
     # For User Editing
-    path('articles/editor/', EditorView.as_view(), name='editor'),
-    path('articles/editor/image_upload/', ImageUploadView.as_view(), name='editor_image_upload'),
+    path('editor/', EditorView.as_view(), name='editor'),
+    path('editor/image_upload/', ImageUploadView.as_view(), name='editor_image_upload'),
     path('articles/save/', ArticleSaveView.as_view(), name='article_save'),
 
     # For images,

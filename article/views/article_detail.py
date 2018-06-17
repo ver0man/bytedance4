@@ -8,6 +8,7 @@ from article.models import Article
 
 class ArticleDetailView(DetailView):
     model = Article
+    template_name = 'article.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
