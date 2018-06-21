@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView
 
 from article.models import Images, Article
@@ -15,11 +15,18 @@ from article.models import Images, Article
 # Create your views here.
 
 
-class EditorView(LoginRequiredMixin, TemplateView):
+class EditorView(LoginRequiredMixin, ListView):
+    model = Images
     template_name = 'editor.html'
 
+    paginate_by = 8  # if pagination is desired
 
-# @method_decorator(login_required, name='dispatch')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['now'] = timezone.now()
+        return context
+
+
 class ImageUploadView(LoginRequiredMixin, CreateView):
     model = Images
     fields = []  # did not attach name in the wangEditor.. so leave it blank here

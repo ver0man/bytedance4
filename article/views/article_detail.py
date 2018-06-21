@@ -16,12 +16,3 @@ class ArticleDetailView(DetailView):
         return context
 
 
-def article_list(request):
-    # user = request.user
-    #
-    # score = some_function(user)
-    #
-    # article = Article.objects.filter(labels__in=label_list)
-    #
-    # return
-    pass
