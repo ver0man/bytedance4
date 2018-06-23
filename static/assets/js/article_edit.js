@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    // initialize
+    $('#cover_img_select').formSelect();
+
     // Get CSRF cookie
     var csrftoken = Cookies.get('csrftoken');
 
@@ -61,7 +64,18 @@ $(document).ready(function () {
                 })
             }
         });
-    })
+    });
+
+    $("#cover_img_select").imagepicker();
+    $("#cover_img_select").data('picker').sync_picker_with_select();
+    //
+    // $('.image_picker_selector').masonry({
+    //     // options
+    //     itemSelector: '.masonry_images',
+    //     columnWidth: 400,
+    // });
+
+    $("select").data('picker');
 
 // Activate FAB
 // $('.fixed-action-btn').floatingActionButton({

@@ -13,13 +13,12 @@ from article.models import Images, Article
 
 
 # Create your views here.
-
-
 class EditorView(LoginRequiredMixin, ListView):
     model = Images
     template_name = 'editor.html'
 
-    paginate_by = 8  # if pagination is desired
+    # TODO: Adding Ajax pagination
+    paginate_by = 8
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

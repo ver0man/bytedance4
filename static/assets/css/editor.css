@@ -6,3 +6,8 @@
     border: 1px solid #ccc;
     height: 600px;
 }
+
+.image_picker_image {
+    width: 150px;
+    height: 150px;
+}
