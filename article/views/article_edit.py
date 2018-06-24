@@ -7,8 +7,9 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, FormView
 
+from article.forms import ArticleForm
 from article.models import Images, Article
 
 
@@ -43,7 +44,7 @@ class ImageUploadView(LoginRequiredMixin, CreateView):
                 image = Images.objects.create(image=image_file, profile=self.request.user)
                 image.save()
                 image_urls.append('/images/' + image.slug)
-            #
+
             return JsonResponse({'errno': 0, 'data': image_urls})
 
     def form_invalid(self, form):
@@ -94,16 +95,27 @@ def image_detail(request, slug):
         return response
 
 
-class ArticleSaveView(LoginRequiredMixin, CreateView):
-    model = Article
-    fields = ['title', 'body', 'cover', ]
+class ArticleCRUDView(LoginRequiredMixin, FormView):
+    form_class = ArticleForm
+    template_name = 'editor.html'
 
     def form_valid(self, form):
+        # Cover is needed
+        if not self.request.POST['cover']:
+            return JsonResponse({'message': '请先设置封面!'})
+
+        article = form.instance
         # Attach the user to the form
-        form.instance.author = self.request.user
-        form.save()
-        # Return Json Response, overwrite the createview redirect return
-        return JsonResponse({'message': '保存成功!'})
+        article.author = self.request.user
+
+        # Update or create the article
+        article_new, created = Article.objects.update_or_create(title=article.title, author=self.request.user,
+                                                                defaults={'body': article.body, 'cover': article.cover})
+        if created:
+            # Return Json Response, overwrite the createview redirect return
+            return JsonResponse({'message': '新文章保存成功!'})
+        else:
+            return JsonResponse({'message': '文章成功更新!'})
 
     def form_invalid(self, form):
         # TODO: Add form error messages

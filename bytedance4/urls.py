@@ -38,7 +38,7 @@ urlpatterns = [
     # path('editor/', image_index, name='editor'),
     path('editor/image_upload/', ImageUploadView.as_view(), name='editor_image_upload'),
     path('editor/cover_image_upload/', CoverImageUploadView.as_view(), name='cover_image_upload'),
-    path('editor/save/', ArticleSaveView.as_view(), name='article_save'),
+    path('editor/save/', ArticleCRUDView.as_view(), name='article_save'),
 
     # For images,
     path('images/<slug:slug>/', image_detail, name='image'),

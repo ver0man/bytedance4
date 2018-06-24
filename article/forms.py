@@ -16,7 +16,7 @@ class ImageUploadForm(ModelForm):
         fields = ['image', ]
 
 
-class ArticleSaveForm(ModelForm):
+class ArticleForm(ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'body', ]
+        fields = ['title', 'body', 'cover', ]
