@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'article',
-    'el_pagination',
 ]
 
 MIDDLEWARE = [

@@ -75,9 +75,8 @@ class Article(models.Model):
     author = models.ForeignKey(BaseProfile, on_delete=models.CASCADE)
 
     # Titles & Body
-    # TODO: How to display html? how to work with wangEditor format
     title = models.CharField('title', max_length=70)
-    cover = models.ForeignKey('Images', on_delete=models.SET_NULL, null=True, blank=True)
+    cover = models.ForeignKey('Images', on_delete=models.SET_NULL, blank=True, null=True)
     body = models.TextField('body')
 
     # Timestamps
@@ -163,6 +162,9 @@ class Images(models.Model):
     image = models.ImageField(upload_to=get_user_image_path)
     profile = models.ForeignKey(BaseProfile, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=50, unique=True, allow_unicode=True)
+    # Timestamps
+    created_time = models.DateTimeField('time created', auto_now_add=True)
+    last_modified_time = models.DateTimeField('time last modified', auto_now=True)
 
     def __str__(self):
         return self.image.name

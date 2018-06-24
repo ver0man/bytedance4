@@ -1,0 +1,80 @@
+<div class="input-field col s12">
+    <select class="browser-default" id="cover_img_select" name="cover">
+        <option value="" disabled selected></option>
+        {% for image in images_list %}
+            <option data-img-src="{{ image.get_absolute_url }}"
+                    value="{{ image.pk }}">{{ image.slug }}</option>
+        {% endfor %}
+    </select>
+</div>
+{% if is_paginated %}
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="waves-effect"><a href="?page={{ page_obj.previous_page_number }}"><i
+                    class="material-icons">chevron_left</i></a></li>
+        {% else %}
+            <li class="disabled"><i class="material-icons">chevron_left</i></li>
+        {% endif %}
+
+        {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+            {% else %}
+                <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {##}
+        {% if page_obj.has_next %}
+            <li class="waves-effect"><a href="?page={{ page_obj.next_page_number }}"><i
+                    class="material-icons">chevron_right</i></a></li>
+        {% else %}
+            <li class="disabled"><i class="material-icons">chevron_right</i></li>
+        {% endif %}
+    </ul>
+{% endif %}
+
+
+{#<script type="text/javascript">#}
+{#function ajax_get_images()#}
+{#    {#}
+{#       $.get(url, function(results){#}
+{#          //get the parts of the result you want to update. Just select the needed parts of the response#}
+{#          var table = $("table", results);#}
+{#          var span = $("span.step-links", results);#}
+{##}
+{#          //update the ajax_table_result with the return value#}
+{#          $('#ajax_table_result').html(table);#}
+{#          $('.step-links').html(span);#}
+{#        }, "html");#}
+{#    }#}
+{##}
+{#//bind the corresponding links in your document to the ajax get function#}
+{#$( document ).ready( function() {#}
+{#    $( '.step-links #prev' ).click( function(e) {#}
+{#        e.preventDefault();#}
+{#        url = ($( '.step-links #prev' )[0].href);#}
+{#        ajax_get_update();#}
+{#    });#}
+{#    $( '.step-links #next' ).click( function(e) {#}
+{#        e.preventDefault();#}
+{#        url = ($( '.step-links #next' )[0].href);#}
+{#        ajax_get_update();#}
+{##}
+{#    });#}
+{#});#}
+{##}
+{#//since the links are reloaded we have to bind the links again#}
+{#//to the actions#}
+{#$( document ).ajaxStop( function() {#}
+{#    $( '.step-links #prev' ).click( function(e) {#}
+{#        e.preventDefault();#}
+{#        url = ($( '.step-links #prev' )[0].href);#}
+{#        ajax_get_update();#}
+{#    });#}
+{#    $( '.step-links #next' ).click( function(e) {#}
+{#        e.preventDefault();#}
+{#        url = ($( '.step-links #next' )[0].href);#}
+{#        ajax_get_update();#}
+{#    });#}
+{#});#}
+{#</script>#}

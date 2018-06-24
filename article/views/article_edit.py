@@ -1,11 +1,11 @@
 import mimetypes
-import pdb
 from wsgiref.util import FileWrapper
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView
 
@@ -19,6 +19,7 @@ class EditorView(LoginRequiredMixin, ListView):
 
     # TODO: Adding Ajax pagination
     paginate_by = 8
+    ordering = ['-last_modified_time']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -46,8 +47,29 @@ class ImageUploadView(LoginRequiredMixin, CreateView):
             return JsonResponse({'errno': 0, 'data': image_urls})
 
     def form_invalid(self, form):
-        pdb.set_trace()
         return JsonResponse({'errno': 1, 'data': ['']})
+
+
+class CoverImageUploadView(LoginRequiredMixin, CreateView):
+    model = Images
+    fields = []  # did not attach name in the wangEditor.. so leave it blank here
+    template_name = 'editor.html'
+
+    def form_valid(self, form):
+        # Attach the user to the form
+        # form.instance.user = self.request.user
+        form.save(commit=False)
+        if self.request.FILES:
+            # Multiple images uploaded
+            image_files = self.request.FILES.getlist('cover_image')
+            for image_file in image_files:
+                image = Images.objects.create(image=image_file, profile=self.request.user)
+                image.save()
+            # TODO: After Ajax for the pagination is fixed, can redirect to that response
+            return redirect('editor')
+
+    def form_invalid(self, form):
+        return redirect('editor')
 
 
 @login_required
@@ -74,7 +96,7 @@ def image_detail(request, slug):
 
 class ArticleSaveView(LoginRequiredMixin, CreateView):
     model = Article
-    fields = ['title', 'body', ]
+    fields = ['title', 'body', 'cover', ]
 
     def form_valid(self, form):
         # Attach the user to the form
@@ -84,5 +106,5 @@ class ArticleSaveView(LoginRequiredMixin, CreateView):
         return JsonResponse({'message': '保存成功!'})
 
     def form_invalid(self, form):
-        pdb.set_trace()
-        return JsonResponse({'message': '保存成功!'})
+        # TODO: Add form error messages
+        return JsonResponse({'message': '保存失败!'})
