@@ -131,55 +131,62 @@
         </div>
     </div>
 
-    <div class="preloader-wrapper big active loading" style="display: none;">
-        <div class="spinner-layer spinner-blue">
-            <div class="circle-clipper left">
-                <div class="circle"></div>
+    <div class="center-align loading">
+        <div class="preloader-wrapper big active infinite-scroll-request">
+            <div class="spinner-layer spinner-blue">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
             </div>
-            <div class="gap-patch">
-                <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-                <div class="circle"></div>
-            </div>
-        </div>
 
-        <div class="spinner-layer spinner-red">
-            <div class="circle-clipper left">
-                <div class="circle"></div>
+            <div class="spinner-layer spinner-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
             </div>
-            <div class="gap-patch">
-                <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-                <div class="circle"></div>
-            </div>
-        </div>
 
-        <div class="spinner-layer spinner-yellow">
-            <div class="circle-clipper left">
-                <div class="circle"></div>
+            <div class="spinner-layer spinner-yellow">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
             </div>
-            <div class="gap-patch">
-                <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-                <div class="circle"></div>
-            </div>
-        </div>
 
-        <div class="spinner-layer spinner-green">
-            <div class="circle-clipper left">
-                <div class="circle"></div>
-            </div>
-            <div class="gap-patch">
-                <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-                <div class="circle"></div>
+            <div class="spinner-layer spinner-green">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
             </div>
         </div>
     </div>
+
+    {% if page_obj.has_next %}
+        <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+    {% endif %}
+
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large red">
@@ -194,15 +201,11 @@
         </ul>
     </div>
 
-    {% if page_obj.has_next %}
-        <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">More</a>
-    {% endif %}
-
 {% endblock %}
 
 {% block page_scripts %}
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <script src="{% static 'waypoint/jquery.waypoints.min.js' %}"></script>
-    <script src="{% static 'waypoint/shortcuts/infinite.js' %}"></script>
+    <script src="https://unpkg.com/packery@2/dist/packery.pkgd.min.js"></script>
+    <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
     <script src="{% static 'assets/js/article_list.js' %}"></script>
 {% endblock %}

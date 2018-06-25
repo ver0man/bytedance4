@@ -11,7 +11,7 @@ $(document).ready(function () {
         }
     });
 
-    var grid_masonry = $('.grid').masonry({
+    var $grid = $('.grid').masonry({
         // options
         itemSelector: '.grid-item',
         columnWidth: '.grid-sizer',
@@ -20,17 +20,17 @@ $(document).ready(function () {
         stagger: 30,
     });
 
-    var infinite = new Waypoint.Infinite({
-        element: $('.infinite-container')[0],
-        onBeforePageLoad: function () {
-            $('.loading').show();
-        },
-        onAfterPageLoad: function ($items) {
-            $('.loading').hide();
-            grid_masonry.masonry('reloadItems');
-            grid_masonry.masonry('layout');
+    // get Masonry instance
+    var msnry = $grid.data('masonry');
 
-        }
+    // Start the infinite scroll
+    $('.infinite-container').infiniteScroll({
+        // options
+        path: '.infinite-more-link',
+        append: '.grid-item',
+        outlayer: msnry,
+        status: '.loading',
+        history: false,
     });
 
 });
