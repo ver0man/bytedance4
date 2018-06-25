@@ -1,104 +1,182 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block page_css %}
+    <link href="{% static 'assets/css/article_list.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block page_content %}
 
+    <div class="divider"></div>
     <div class="container">
         <!-- Example for showing the abstracts of articles -->
-        <div class="row">
-            <div class="col s12 m4">
-                <div class="card hoverable">
-                    <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="{% static 'test_folder/6.jpg' %}">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Card Title<i
+        <div class="grid infinite-container">
+            <div class="grid-sizer"></div>
+            <div class="gutter-sizer"></div>
+            {% for article in article_list %}
+                <div class="grid-item infinite-item">
+                    <div class="card hoverable sticky-action">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="{{ article.cover.get_absolute_url }}">
+                        </div>
+                        <div class="card-content">
+                        <span class="card-title activator"><a class="grey-text text-darken-4"
+                                                              href="{{ article.get_absolute_url }}">{{ article.title }}</a><i
                                 class="material-icons right">more_vert</i></span>
-                        <p><a href="#">This is a link</a></p>
-                    </div>
-                    <div class="card-reveal">
+                            <p>{{ article.author }}</p>
+                            <p><a href="#">This is a link</a></p>
+                        </div>
+                        <div class="card-reveal">
                         <span class="card-title grey-text text-darken-4">Card Title<i
                                 class="material-icons right">close</i></span>
-                        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                            <p>{{ article.abstract }}</p>
+                        </div>
+                        <div class="card-action">
+                            {{ article.last_modified_time }}
+                        </div>
                     </div>
                 </div>
+            {% endfor %}
+            {#            <div class="grid-item">#}
+            {#                <div class="card hoverable">#}
+            {#                    <div class="card-image waves-effect waves-block waves-light">#}
+            {#                        <img class="activator" src="{% static 'test_folder/6.jpg' %}">#}
+            {#                    </div>#}
+            {#                    <div class="card-content">#}
+            {#                        <span class="card-title activator grey-text text-darken-4">Card Title<i#}
+            {#                                class="material-icons right">more_vert</i></span>#}
+            {#                        <p><a href="#">This is a link</a></p>#}
+            {#                    </div>#}
+            {#                    <div class="card-reveal">#}
+            {#                        <span class="card-title grey-text text-darken-4">Card Title<i#}
+            {#                                class="material-icons right">close</i></span>#}
+            {#                        <p>Here is some more information about this product that is only revealed once clicked on.</p>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </div>#}
+            {#            <div class="grid-item">#}
+            {#                <div class="card hoverable sticky-action">#}
+            {#                    <div class="card-image waves-effect waves-block waves-light">#}
+            {#                        <img class="activator" src="{% static 'test_folder/6.jpg' %}">#}
+            {#                    </div>#}
+            {#                    <div class="card-content">#}
+            {#                        <span class="card-title activator grey-text text-darken-4">Card Title<i#}
+            {#                                class="material-icons right">more_vert</i></span>#}
+            {#                        <p><a href="#">This is a link</a></p>#}
+            {#                    </div>#}
+            {#                    <div class="card-reveal">#}
+            {#                        <span class="card-title grey-text text-darken-4">Card Title<i#}
+            {#                                class="material-icons right">close</i></span>#}
+            {#                        <p>Here is some more information about this product that is only revealed once clicked on.</p>#}
+            {#                    </div>#}
+            {#                    <div class="card-action">#}
+            {#                        LALALA#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </div>#}
+            {#            <div class="grid-item">#}
+            {#                <div class="card">#}
+            {#                    <div class="card-image">#}
+            {#                        <img src="{% static 'test_folder/7.jpg' %}">#}
+            {#                        <span class="card-title">Card Title</span>#}
+            {#                        <a class="btn-floating halfway-fab waves-effect waves-light red"><i#}
+            {#                                class="material-icons">add</i></a>#}
+            {#                    </div>#}
+            {#                    <div class="card-content">#}
+            {#                        <p>I am a very simple card. I am good at containing small bits of information. I am convenient#}
+            {#                            because I require little markup to use effectively.</p>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </div>#}
+            {#            <div class="grid-item">#}
+            {#                <div class="card">#}
+            {#                    <div class="card-image">#}
+            {#                        <img src="{% static 'test_folder/7.jpg' %}">#}
+            {#                        <span class="card-title">Card Title</span>#}
+            {#                        <a class="btn-floating halfway-fab waves-effect waves-light red"><i#}
+            {#                                class="material-icons">add</i></a>#}
+            {#                    </div>#}
+            {#                    <div class="card-content">#}
+            {#                        <p>I am a very simple card. I am good at containing small bits of information.</p>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </div>#}
+            {#            <div class="grid-item">#}
+            {#                <div class="card blue-grey darken-1">#}
+            {#                    <div class="card-content white-text">#}
+            {#                        <span class="card-title">Card Title</span>#}
+            {#                        <p>I am convenient because I require little markup to use effectively.</p>#}
+            {#                    </div>#}
+            {#                    <div class="card-action">#}
+            {#                        <a href="#">This is a link</a>#}
+            {#                        <a href="#">This is a link</a>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </div>#}
+            {#            <div class="grid-item">#}
+            {#                <div class="card">#}
+            {#                    <div class="card-image">#}
+            {#                        <img src="{% static 'test_folder/8.jpg' %}">#}
+            {#                        <span class="card-title">Card Title</span>#}
+            {#                    </div>#}
+            {#                    <div class="card-content">#}
+            {#                        <p>I am a very simple card. I am good at containing small bits of information.#}
+            {#                            I am convenient because I require little markup to use effectively.</p>#}
+            {#                    </div>#}
+            {#                    <div class="card-action">#}
+            {#                        <a href="#">This is a link</a>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </div>#}
+        </div>
+    </div>
+
+    <div class="preloader-wrapper big active loading" style="display: none;">
+        <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
             </div>
-            <div class="col s12 m4">
-                <div class="card sticky-action">
-                    <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="{% static 'test_folder/6.jpg' %}">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Card Title<i
-                                class="material-icons right">more_vert</i></span>
-                        <p><a href="#">This is a link</a></p>
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Card Title<i
-                                class="material-icons right">close</i></span>
-                        <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                    </div>
-                    <div class="card-action">
-                        LALALA
-                    </div>
-                </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
             </div>
-            <div class="col s12 m4">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{% static 'test_folder/7.jpg' %}">
-                        <span class="card-title">Card Title</span>
-                        <a class="btn-floating halfway-fab waves-effect waves-light red"><i
-                                class="material-icons">add</i></a>
-                    </div>
-                    <div class="card-content">
-                        <p>I am a very simple card. I am good at containing small bits of information. I am convenient
-                            because I require little markup to use effectively.</p>
-                    </div>
-                </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col s12 m3">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{% static 'test_folder/7.jpg' %}">
-                        <span class="card-title">Card Title</span>
-                        <a class="btn-floating halfway-fab waves-effect waves-light red"><i
-                                class="material-icons">add</i></a>
-                    </div>
-                    <div class="card-content">
-                        <p>I am a very simple card. I am good at containing small bits of information.</p>
-                    </div>
-                </div>
+        <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
             </div>
-            <div class="col s12 m3">
-                <div class="card blue-grey darken-1">
-                    <div class="card-content white-text">
-                        <span class="card-title">Card Title</span>
-                        <p>I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="#">This is a link</a>
-                        <a href="#">This is a link</a>
-                    </div>
-                </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
             </div>
-            <div class="col s12 m6">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{% static 'test_folder/8.jpg' %}">
-                        <span class="card-title">Card Title</span>
-                    </div>
-                    <div class="card-content">
-                        <p>I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="#">This is a link</a>
-                    </div>
-                </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+
+        <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+
+        <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
             </div>
         </div>
     </div>
@@ -108,11 +186,23 @@
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>
-            <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+            <li><a class="btn-floating red" href="{% url 'editor' %}"><i class="material-icons">insert_chart</i></a>
+            </li>
             <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
             <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
             <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
         </ul>
     </div>
 
+    {% if page_obj.has_next %}
+        <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">More</a>
+    {% endif %}
+
+{% endblock %}
+
+{% block page_scripts %}
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="{% static 'waypoint/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'waypoint/shortcuts/infinite.js' %}"></script>
+    <script src="{% static 'assets/js/article_list.js' %}"></script>
 {% endblock %}

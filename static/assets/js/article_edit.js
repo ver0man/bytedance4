@@ -38,23 +38,6 @@ $(document).ready(function () {
             // return '验证失败' // 返回字符串，即校验失败的提示信息
         }
     };
-//     // 关闭粘贴样式的过滤
-//     editor.customConfig.pasteFilterStyle = true;
-//     // 忽略粘贴内容中的图片
-//     editor.customConfig.pasteIgnoreImg = false;
-//     // 自定义处理粘贴的文本内容
-//     editor.customConfig.pasteTextHandle = function (content) {
-//         return content + '<p>记得注明出处：华尔街扛把子哦～</p>';
-//     };
-//     // For images
-//     editor.customConfig.uploadImgServer = 'image_upload/';
-//     // For django requirement
-//     editor.customConfig.uploadImgHeaders = {
-//
-//     };
-//     editor.customConfig.linkImgCallback = function (url) {
-//     console.log(url) // url 即插入图片的地址
-// }
 
     editor.create();
 

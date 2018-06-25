@@ -1,0 +1,32 @@
+.container {
+    margin: 0 auto;
+    max-width: 1280px;
+    width: 90%;
+}
+
+@media only screen and (min-width: 601px) {
+    .container {
+        width: 90%;
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    .container {
+        width: 90%;
+    }
+}
+
+/* fluid 5 columns */
+.grid-sizer,
+.grid-item {
+    width: 30%;
+}
+
+.gutter-sizer {
+    width: 3%;
+}
+
+/* 2 columns wide */
+.grid-item--width2 {
+    width: 48%;
+}

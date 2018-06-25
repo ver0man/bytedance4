@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="{% static 'materialize/css/materialize.css' %}" type="text/css" rel="stylesheet"
           media="screen,projection"/>
-    <link href="{% static 'parallax/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
 
     {% block page_css %}
     {% endblock %}
@@ -43,6 +42,9 @@
     </nav>
 </div>
 
+{% block page_content %}
+
+{% endblock %}
 
 <!-- Login/Register Modal Structure -->
 
@@ -81,7 +83,6 @@
             </div>
         </div>
 
-
         <div id="tab-register" class="input-field col s12">
             <form id="register-form">
                 <div class="input-field col s12">
@@ -106,16 +107,8 @@
                 <button class="waves-effect waves-light btn" type="submit" onclick="registerAjax()">注册</button>
             </div>
         </div>
-        </form>
     </div>
-
 </div>
-
-
-
-{% block page_content %}
-
-{% endblock %}
 
 <footer class="page-footer teal">
     <div class="container">
