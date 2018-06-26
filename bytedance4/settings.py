@@ -25,7 +25,7 @@ SECRET_KEY = '5p=ju7$ch@%%msy-ibhbc4!dqv%ky+)543mwi&be*bckltz^d#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'fmwang.pythonanywhere.com', ]
 
 
 # Application definition
@@ -75,6 +75,7 @@ WSGI_APPLICATION = 'bytedance4.wsgi.application'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 # SESSION_COOKIE_AGE = 1209600 # Default to 2 weeks
+SESSION_COOKIE_HTTPONLY = True
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -130,6 +131,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

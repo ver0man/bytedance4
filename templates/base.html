@@ -9,8 +9,7 @@
 
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="{% static 'materialize/css/materialize.css' %}" type="text/css" rel="stylesheet"
-          media="screen,projection"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
 
     {% block page_css %}
     {% endblock %}
@@ -155,17 +154,11 @@
 
 <!-- Page JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="{% static 'materialize/js/materialize.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 <script src="{% static 'assets/js/base.js' %}"></script>
 
 <!-- User JS -->
 <script src="{% static 'assets/js/login-register.js' %}"></script>
-
-{#    <!-- Compiled and minified CSS -->#}
-{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">#}
-{##}
-{#    <!-- Compiled and minified JavaScript -->#}
-{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>#}
 
 {% block page_scripts %}
 
