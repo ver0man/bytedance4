@@ -73,6 +73,22 @@ $(document).ready(function () {
         });
     });
 
+    // Function for wrapper
+    function materialize_pagination() {
+        let page_current = $('#cover_image_pagination > .endless_page_current > strong').html();
+        $('#cover_image_pagination > .endless_page_current').replaceWith("<li class='active'><a href='#!'>" + page_current + "</a></li>");
+        $('#cover_image_pagination > .endless_page_link').wrap("<li class='waves-effect'></li>");
+    }
+
+    $.endlessPaginate({
+        onCompleted: function (context, fragment) {
+            materialize_pagination();
+            $("#cover_img_select").imagepicker();
+        }
+    });
+
+    materialize_pagination();
+    // Function for initialize image picker
     $("#cover_img_select").imagepicker();
     // $("#cover_img_select").data('picker').sync_picker_with_select();
 

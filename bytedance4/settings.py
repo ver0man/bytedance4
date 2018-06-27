@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'el_pagination',
 
     'article',
 ]
@@ -147,3 +148,9 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 MANAGERS = ()
 ADMINS = (('Chumeng', 'chumeng.zheng@gmail.com'),)
+
+# Customize el_pagination with materialize icon
+EL_PAGINATION_PREVIOUS_LABEL = '<i class="material-icons">chevron_left</i>'
+EL_PAGINATION_NEXT_LABEL = '<i class="material-icons">chevron_right</i>'
+EL_PAGINATION_FIRST_LABEL = '<i class="material-icons">first_page</i>'
+EL_PAGINATION_LAST_LABEL = '<i class="material-icons">last_page</i>'

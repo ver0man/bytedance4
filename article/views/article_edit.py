@@ -4,28 +4,23 @@ from wsgiref.util import FileWrapper
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse, HttpResponse
-from django.shortcuts import get_object_or_404
-from django.shortcuts import redirect
-from django.views.generic import ListView
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.edit import CreateView, FormView
+from el_pagination.decorators import page_template
 
 from article.forms import ArticleForm
 from article.models import Images, Article
 
 
-# Create your views here.
-class EditorView(LoginRequiredMixin, ListView):
-    model = Images
-    template_name = 'editor.html'
-
-    # TODO: Adding Ajax pagination
-    paginate_by = 8
-    ordering = ['-last_modified_time']
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # context['now'] = timezone.now()
-        return context
+# For listing cover images ajax view
+@page_template('images_list.html')  # just add this decorator
+def images_list(request, template='editor.html', extra_context=None):
+    context = {
+        'images_list': Images.objects.all().order_by('-last_modified_time', ),
+    }
+    if extra_context is not None:
+        context.update(extra_context)
+    return render(request, template, context)
 
 
 class ImageUploadView(LoginRequiredMixin, CreateView):

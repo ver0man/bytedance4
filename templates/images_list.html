@@ -1,0 +1,16 @@
+{% load el_pagination_tags %}
+
+{% paginate 8 images_list %}
+<div class="input-field col s12">
+    <select class="browser-default" id="cover_img_select" name="cover">
+        <option value="" disabled selected></option>
+        {% for image in images_list %}
+            <option data-img-src="{{ image.get_absolute_url }}"
+                    value="{{ image.pk }}">{{ image.slug }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<ul class="pagination" id="cover_image_pagination">
+    {% show_pages %}
+</ul>

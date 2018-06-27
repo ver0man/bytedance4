@@ -57,7 +57,7 @@
         </div>
 
         <div id="tab-login" class="input-field col s12">
-            <form id="login-form">
+            <form id="login-form">{% csrf_token %}
                 <div class="input-field col s12">
                     <i class="material-icons prefix">email</i>
                     <input id="email_inline" type="email" class="validate" name="email">
@@ -83,7 +83,7 @@
         </div>
 
         <div id="tab-register" class="input-field col s12">
-            <form id="register-form">
+            <form id="register-form">{% csrf_token %}
                 <div class="input-field col s12">
                     <i class="material-icons prefix">email</i>
                     <input id="email_inline2" type="email" class="validate" name="email">

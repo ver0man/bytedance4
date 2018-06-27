@@ -26,19 +26,17 @@
                 <p>请输入文章内容</p>
             </div>
         </div>
-        {#        <div class="divider"></div>#}
 
         <ul class="collapsible popout">
             <li>
                 <div class="collapsible-header"><i class="material-icons">filter_drama</i>封面设置</div>
-                <div class="collapsible-body">
+                <div class="endless_page_template collapsible-body">
                     {#                    <button class="btn waves-effect waves-light" type="submit" name="cover_image_upload">#}
                     {#                        <i class="material-icons right">send</i>#}
                     {#                    </button>#}
-                    <button class="btn modal-trigger waves-effect waves-light" data-target="image_list_modal">图片上传
-                    </button>
-
-                    {% include 'image_pagination.html' %}
+                    {#                    <button class="btn modal-trigger waves-effect waves-light" data-target="image_list_modal">图片上传#}
+                    {#                    </button>#}
+                    {% include page_template %}
                 </div>
             </li>
             <li>
@@ -105,5 +103,6 @@
     <script src="https://rawgit.com/leizongmin/js-xss/master/dist/xss.js"></script>
     <script src="{% static 'assets/js/article_edit.js' %}"></script>
     <script src="{% static 'image_picker/image-picker.js' %}"></script>
+    <script src="{% static 'el-pagination/js/el-pagination.js' %}"></script>
 
 {% endblock %}

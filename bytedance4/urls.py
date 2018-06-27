@@ -34,8 +34,8 @@ urlpatterns = [
     path('articles/<slug:slug>/', ArticleDetailView.as_view(), name='article-detail'),
 
     # For User Editing
-    path('editor/', EditorView.as_view(), name='editor'),
-    # path('editor/', image_index, name='editor'),
+    # path('editor/', EditorView.as_view(), name='editor'),
+    path('editor/', images_list, name='editor'),
     path('editor/image_upload/', ImageUploadView.as_view(), name='editor_image_upload'),
     path('editor/cover_image_upload/', CoverImageUploadView.as_view(), name='cover_image_upload'),
     path('editor/save/', ArticleCRUDView.as_view(), name='article_save'),
