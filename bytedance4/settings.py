@@ -38,9 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'el_pagination',
+    'threadedcomments',
+    'django_comments',
+    'django.contrib.sites',
 
+    # Current app
     'article',
 ]
+
+# Customizing comments app
+SITE_ID = 1
+COMMENTS_APP = 'threadedcomments'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
