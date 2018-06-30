@@ -11,6 +11,11 @@ from unidecode import unidecode
 from article.helper.helper import unique_slugify
 
 
+#######################################
+# Section 1: User Model
+#######################################
+
+
 def get_user_profile_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_{0}/profile/{1}'.format(instance.user.id, filename)
@@ -52,6 +57,11 @@ class ProfileFollowers(models.Model):
     """
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     follower = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='follower')
+
+
+#######################################
+# Section 2: Articles & Relationships
+#######################################
 
 
 class Article(models.Model):
@@ -127,29 +137,6 @@ class Article(models.Model):
         return reverse('article-detail', kwargs={'slug': self.slug})
 
 
-class Category(models.Model):
-    """
-    Store Article Category information
-    """
-    name = models.CharField('name', max_length=50)
-    created_time = models.DateTimeField('time created', auto_now_add=True)
-    last_modified_time = models.DateTimeField('time last modified', auto_now=True)
-
-    def __str__(self):
-        return self.name
-
-
-class Labels(models.Model):
-    """
-    Article Labels for future NLTK use
-    """
-    name = models.CharField('name', max_length=50)
-    articles = models.ManyToManyField('Article')
-
-    def __str__(self):
-        return self.name
-
-
 def get_user_image_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_{0}/images/{1}/{2}'.format(instance.profile.id, datetime.now().strftime('%Y/%m/%d'), filename)
@@ -181,6 +168,29 @@ class Images(models.Model):
         return reverse('image', kwargs={'slug': self.slug})
 
 
+class Category(models.Model):
+    """
+    Store Article Category information
+    """
+    name = models.CharField('name', max_length=50)
+    created_time = models.DateTimeField('time created', auto_now_add=True)
+    last_modified_time = models.DateTimeField('time last modified', auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Labels(models.Model):
+    """
+    Article Labels for future NLTK use
+    """
+    name = models.CharField('name', max_length=50)
+    articles = models.ManyToManyField('Article')
+
+    def __str__(self):
+        return self.name
+
+
 class ArticleLiked(models.Model):
     """
     Store relation that user liked articles
@@ -197,6 +207,29 @@ class ArticleStored(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
 
 
+#######################################
+# Section 3: Comments & Posts
+#######################################
+
+class Comments(models.Model):
+    profile = models.ForeignKey(BaseProfile, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    comment = models.TextField()
+    parent_comment = models.ForeignKey('Comments', on_delete=models.SET_NULL, null=True, blank=True)
+    comment_time = models.DateTimeField('time last modified', auto_now=True)
+    is_removed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.comment
+
+    def get_absolute_url(self):
+        return reverse('comments', kwargs={'pk': self.pk})
+
+
+#######################################
+# Section 4: Stocks
+#######################################
+
 class Stocks(models.Model):
     """
     Design for stocks?
@@ -209,4 +242,3 @@ class StocksWatchers(models.Model):
     Design for watching specific stocks
     """
     pass
-

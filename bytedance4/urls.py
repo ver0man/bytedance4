@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import path, include
+from django.urls import path
 
 from article.views import *
 
@@ -32,7 +32,7 @@ urlpatterns = [
 
     # For articles
     path('articles/<slug:slug>/', ArticleDetailView.as_view(), name='article-detail'),
-    path('articles/comments/', include('django_comments.urls')),
+    path('articles/<slug:slug>/comments/', CommentPostView.as_view(), name='article_comment'),
 
     # For User Editing
     # path('editor/', EditorView.as_view(), name='editor'),

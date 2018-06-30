@@ -20,7 +20,7 @@ function registerAjax() {
     // Handle the register
     $.ajax({
         type: "POST",
-        url: 'accounts/register/',
+        url: '/accounts/register/',
         dataType: 'json',
         // Pass the user selection to the url
         data: $('#register-form').serialize(),
@@ -55,7 +55,7 @@ function loginAjax() {
             }
         }
     });
-    $.post("accounts/login/", $('#login-form').serialize(), function (result) {
+    $.post("/accounts/login/", $('#login-form').serialize(), function (result) {
         if (result.status) {
             window.location.replace("/");
         } else {
