@@ -217,6 +217,7 @@ class Comments(models.Model):
     comment = models.TextField()
     parent_comment = models.ForeignKey('Comments', on_delete=models.SET_NULL, null=True, blank=True)
     comment_time = models.DateTimeField('time last modified', auto_now=True)
+    liked = models.IntegerField(default=0)
     is_removed = models.BooleanField(default=False)
 
     def __str__(self):
