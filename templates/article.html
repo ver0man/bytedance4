@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load sass_tags %}
 
 {% block page_css %}
 
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link href="https://cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{% static 'assets/css/article_detail.css' %}">
-
+    <link href="{% static 'assets/css/article.scss' %}" rel="stylesheet" type="text/css">
 
 {% endblock %}
 
@@ -19,6 +21,11 @@
 
                 {{ article.body | safe }}
 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s6">
+                <i id="like-button" class="fa fa-2x fa-heart-o not-liked"></i>
             </div>
         </div>
         <div class="row">

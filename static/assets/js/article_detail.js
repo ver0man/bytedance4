@@ -56,10 +56,9 @@ $(document).ready(function () {
             data: data,
             success: function (result) {
                 $('#comments').html(result);
-                // quill.setContents([{insert: '\n'}]);
+                quill.setContents([{insert: '\n'}]);
             },
             fail: function (result) {
-                console.log('failed comment');
                 $('#modal-login').open();
             }
         });
@@ -102,10 +101,31 @@ $(document).ready(function () {
             });
         }
 
-    })
+    });
 
     // Display comments
     // preciousContent.innerHTML = JSON.stringify(delta);
+    var like_button = document.getElementById("like-button");
+    if (like_button) {
+        like_button.addEventListener("click", doLikeButton);
+    }
+
+    function doLikeButton(e) {
+        toggleButton(e.target);
+    }
+
+    function toggleButton(button) {
+        button.classList.remove('liked-shaked');
+        button.classList.toggle('liked');
+        button.classList.toggle('not-liked');
+        button.classList.toggle('fa-heart-o');
+        button.classList.toggle('fa-heart');
+
+        if (button.classList.contains("liked")) {
+            button.classList.add('liked-shaked');
+        }
+    }
+
 });
 
 

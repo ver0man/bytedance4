@@ -32,7 +32,6 @@ $(document).ready(function () {
         status: '.loading',
         history: false,
     });
-
 });
 
 

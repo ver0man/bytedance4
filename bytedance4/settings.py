@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'el_pagination',
+    'sass_processor',
 
     # Current app
     'article',
@@ -135,6 +136,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 # STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static', 'assets', 'sass')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
