@@ -16,7 +16,11 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comments'] = self.get_object().comments_set.all()
+        # All comments
+        article = self.get_object()
+        comments = article.comments_set.all().order_by('comment_time')
+
+        context['comments'] = comments
         return context
 
 
@@ -39,11 +43,19 @@ class CommentPostView(CreateView):
         url_string = self.request.path.split('/')
         comment.article = Article.objects.get(slug=url_string[url_string.index('comments') - 1])
 
+        # Find parent comment if exist
+        if 'parent' in self.request.POST.keys():
+            comment.parent_comment = Comments.objects.get(pk=int(self.request.POST['parent']))
+
+        # Save instance
         comment.save()
 
         # Return response
-        return render_to_response(self.template_name, {'comments': comment.article.comments_set.all()})
+        results = {'comments': comment.article.comments_set.all().order_by('comment_time')}
+
+        return render_to_response(self.template_name, results)
 
     def form_invalid(self, form):
+        # TODO: Edit error message
         pdb.set_trace()
         return JsonResponse({'errno': 1, 'data': ['']})

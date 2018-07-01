@@ -1,4 +1,6 @@
 {% load static %}
+{% load index %}
+
 <div class="section" id="comments">
     {% for comment in comments %}
         <div class="comment col s12 m12" id="comment{{ comment.pk }}">
@@ -6,6 +8,12 @@
                 <div class="card-content black-text">
                     {#                      <span class="card-title">Card Title</span>#}
                     <div class="row valign-wrapper">
+                        {% if comment.parent_comment %}
+                            <div class="col s10 offset-l2">
+                                <blockquote>{{ comment.parent_comment.comment | safe }}</blockquote>
+                            </div>
+                        {% endif %}
+
                         <div class="col s2 m2">
                             <img src="{% static 'assets/img/img_placeholder.jpg' %}" alt=""
                                  class="circle responsive-img"
@@ -27,31 +35,3 @@
         </div>
     {% endfor %}
 </div>
-
-{#<div class="section" id="comments">#}
-{#    {% for comment in comments %}#}
-{#        <div class="col s12 m8 offset-m2 l6 offset-l3">#}
-{#            <div class="card-panel grey lighten-5 z-depth-1">#}
-{#                <div class="row valign-wrapper">#}
-{#                    <div class="col s2">#}
-{#                        <img src="{% static 'assets/img/img_placeholder.jpg' %}" alt="" class="circle responsive-img">#}
-{#                        <!-- notice the "circle" class -->#}
-{#                    </div>#}
-{#                    <div class="col s10">#}
-{#                      <span class="black-text">#}
-{#                       {{ forloop.counter }}#}
-{#                      </span>#}
-{#                        {{ comment.comment | safe }}#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="row valign-wrapper">#}
-{#                    <div class="row">#}
-{#                        <a class="waves-effect waves-teal btn-flat"><i class="material-icons">thumb_up</i> 点赞 </a>#}
-{#                        <a class="waves-effect waves-teal btn-flat"><i class="material-icons">reply</i> 回复 </a>#}
-{#                        <a class="waves-effect waves-teal btn-flat"><i class="material-icons">favorite</i> </a>#}
-{#                        <a class="waves-effect waves-teal btn-flat"><i class="material-icons">share</i> 分享 </a>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    {% endfor %}#}
-{#</div>#}

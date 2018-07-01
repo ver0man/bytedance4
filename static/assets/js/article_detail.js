@@ -31,7 +31,6 @@ $(document).ready(function () {
         theme: 'snow'  // or 'bubble'
     });
 
-    console.log(quill.getContents());
 //     quill.on('text-change', function(delta, oldDelta, source) {
 //   if (source == 'api') {
 //     console.log("An API call triggered this change.");
@@ -40,17 +39,21 @@ $(document).ready(function () {
 //   }
 // });
 
-    $('.comment_submit').on('click', function () {
+    $(document).on('click', '.comment_submit', function () {
 
-        let data = quill.root.innerHTML;
+        let quill_instance = Quill.find($(this).parent().siblings("[id^=quill_editor]")[0]);
+        let data = {'comment': quill_instance.root.innerHTML};
+
         // Test for parent comment
-        // if (xxx) {
-        //
-        // }
+        let is_reply = $(this).closest('div.section').attr('id');
+        if (is_reply) {
+            data['parent'] = is_reply.replace('reply_section', '');
+        }
+
         $.ajax({
             type: 'POST',
             url: 'comments/',
-            data: {'comment': data},
+            data: data,
             success: function (result) {
                 $('#comments').html(result);
                 // quill.setContents([{insert: '\n'}]);
@@ -76,7 +79,7 @@ $(document).ready(function () {
             });
             let reply_button = $("<div class='right-align'></div>").append($("<button/>", {
                 id: 'comment_submit' + comment_id,
-                class: "btn waves-effect waves-light comment_submmit",
+                class: "btn waves-effect waves-light comment_submit",
                 type: 'submit',
                 text: '发送'
             }));

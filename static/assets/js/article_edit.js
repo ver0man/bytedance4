@@ -27,16 +27,14 @@ $(document).ready(function () {
             'X-CSRFToken': csrftoken,
         },
         linkImgCallback: function (url) {
-            console.log(url) // url 即插入图片的地址
+            // console.log(url) // url 即插 入图片的地址
         },
 
         linkCheck: function (text, link) {
-            console.log(text); // 插入的文字
-            console.log(link); // 插入的链接
+            // console.log(text); // 插入的文字
+            // console.log(link); // 插入的链接
 
-            return true // 返回 true 表示校验成功
-            // return '验证失败' // 返回字符串，即校验失败的提示信息
-        }
+            return true
     };
 
     editor.create();
