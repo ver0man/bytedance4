@@ -35,6 +35,7 @@ $(document).ready(function () {
             // console.log(link); // 插入的链接
 
             return true
+        },
     };
 
     editor.create();

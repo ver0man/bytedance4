@@ -1,38 +1,90 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block page_css %}
     <link href="{% static 'assets/css/article_list.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block page_content %}
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+        <li>
+            <div class="user-view">
+                <div class="background">
+                    <img src="{% static 'assets/img/material-design.jpg' %}" style="width: 285px; height: 200px;">
+                </div>
+                <a href="#user"><img class="circle" src="{{ user.headshot }}"></a>
+                <a href="#name"><span class="white-text name">{{ user.username }}</span></a>
+                <a href="#email"><span class="white-text email">{{ user.email }}</span></a>
+            </div>
+        </li>
+        <li><a href="#!"><i class="material-icons">cloud</i>为你推荐</a></li>
+        <li><a href="#!">热门文章</a></li>
+        <li><a class="waves-effect" href="#!">精选</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a class="subheader">投资组合</a></li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header">我的组合<i class="material-icons">arrow_drop_down</i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="#!">$AAPL</a></li>
+                            <li><a href="#!">$JPM</a></li>
+                            <li><a href="#!">$SQ</a></li>
+                            <li><a href="#!">$ASML</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+    {#  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>#}
+
 
     <div class="divider"></div>
-    <div class="container">
+    <div class="container main">
         <!-- Example for showing the abstracts of articles -->
         <div class="grid infinite-container">
             <div class="grid-sizer"></div>
             <div class="gutter-sizer"></div>
             {% for article in article_list %}
                 <div class="grid-item infinite-item">
-                    <div class="card hoverable sticky-action">
-                        <div class="card-image waves-effect waves-block waves-light">
+                    <div class="card hoverable medium grey lighten-5 z-depth-1">
+                        <div class="card-image">
                             <img class="activator" src="{{ article.cover.get_absolute_url }}">
+                            {#                            <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i#}
+                            {#                                    class="material-icons">add</i></a>#}
+                        </div>
+                        <div class="card-fab">
+                            <a class="btn-floating halfway-fab waves-effect waves-light red"
+                               style="margin-right: 50px;"><i
+                                    class="material-icons like">favorite_border</i></a>
+                            <a class="btn-floating halfway-fab waves-effect waves-light blue"><i
+                                    class="material-icons bookmark">bookmark_border</i></a>
                         </div>
                         <div class="card-content">
-                        <span class="card-title activator"><a class="grey-text text-darken-4"
-                                                              href="{{ article.get_absolute_url }}">{{ article.title }}</a><i
-                                class="material-icons right">more_vert</i></span>
-                            <p>{{ article.author }}</p>
-                            <p><a href="#">This is a link</a></p>
-                        </div>
-                        <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Card Title<i
-                                class="material-icons right">close</i></span>
-                            <p>{{ article.abstract }}</p>
+                            <span class="card-title"><h6><a class="grey-text text-darken-2"
+                                                            href="{{ article.get_absolute_url }}">{{ article.title }}</a></h6></span>
+                            <div class="article-label" style="padding-top: 15px; padding-bottom: 5px;">
+                                <div class="chip">苹果</div>
+                                <div class="chip">财报</div>
+                            </div>
                         </div>
                         <div class="card-action">
-                            {{ article.last_modified_time }}
+                            <div class="article-author" style="float: left;">
+                                <span>{{ user.username|truncatechars:9 }}, </span>
+                                <span style="text-align: left;">{{ article.created_time|date:"M d" }}</span>
+                            </div>
+                            <div class="article-statistics">
+                                <span class="article-view"><i
+                                        class="tiny material-icons">remove_red_eye</i> 623  </span>
+                                <span class="article-comment"><i class="tiny material-icons">comment</i> 40  </span>
+                                <span class="article-comment"><i class="tiny material-icons">thumb_up</i> 60  </span>
+                            </div>
                         </div>
                     </div>
                 </div>

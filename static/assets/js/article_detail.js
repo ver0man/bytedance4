@@ -64,7 +64,7 @@ $(document).ready(function () {
         });
     });
 
-    $('.reply').on('click', function () {
+    $(document).on('click', '.reply', function () {
 
         let comment_card = $(this).closest('.comment');
         let comment_id = comment_card.attr('id').replace('comment', '');

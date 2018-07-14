@@ -16,20 +16,40 @@
 </head>
 
 <body>
-<div class="navbar-fixed">
-    <nav class="white" role="navigation">
+<div class="navbar-fixed header">
+    <nav class="teal lighten-1" role="navigation">
         <div class="nav-wrapper container">
-            <a id="logo-container" href="{% url 'index' %}" class="brand-logo black-text">一叶</a>
+            <a id="logo-container" href="{% url 'index' %}" class="brand-logo white-text"><img
+                    src="{% static 'assets/img/11ye_Logo.png' %}" style="height: 60px; width: 176px;"></a>
+            {#            <a id="logo-container" href="{% url 'index' %}" class="brand-logo black-text">一叶</a>#}
+            {#            <form>#}
+            {#                <div class="input-field">#}
+            {#                    <input id="search" type="search" required>#}
+            {#                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>#}
+            {#                    <i class="material-icons">close</i>#}
+            {#                </div>#}
+            {#            </form>#}
+            <ul id="dropdown_account" class="dropdown-content">
+                <li><a href="#!">图文管理</a></li>
+                <li><a href="#!">账号管理</a></li>
+                <li class="divider"></li>
+                <li><a href="#!">three</a></li>
+            </ul>
             <ul class="right hide-on-med-and-down">
-                <!-- Modal Trigger -->
-                <li>
-                    {% if user.is_authenticated %}
-                        <a href="{% url "user_logout" %}" class="black-text">{{ user.username }}</a>
-                    {% else %}
+
+                {% if user.is_authenticated %}
+                    <li><a class="dropdown-trigger white-text" href="#!"
+                           data-target="dropdown_account">{{ user.username }}<i
+                            class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a href="{% url "user_logout" %}" class="white-text">登出</a></li>
+
+                {% else %}
+                    <li>
                         <button data-target="modal-login" class="btn modal-trigger">登录/注册</button>
-                    {% endif %}
-                </li>
-                {#                <li><button data-target="modal-login" class="btn modal-trigger"><i class="material-icons left">assignment_ind</i>注册</button></li>#}
+                    </li>
+                {% endif %}
+
+
             </ul>
 
             <ul id="nav-mobile" class="sidenav">
@@ -112,27 +132,24 @@
 <footer class="page-footer teal">
     <div class="container">
         <div class="row">
-            <div class="col l6 s12">
-                <h5 class="white-text">Company Bio</h5>
-                <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's
-                    our full time job. Any amount would help support and continue development on this project and is
-                    greatly appreciated.</p>
-
-
+            <div class="col l9 s12">
+                <h5 class="white-text">关于我们</h5>
+                <p class="grey-text text-lighten-4">哈哈哈哈哈</p>
+                <h5 class="white-text">关注我们</h5>
             </div>
-            <div class="col l3 s12">
-                <h5 class="white-text">Settings</h5>
-                <ul>
-                    <li><a class="white-text" href="#!">Link 1</a></li>
-                    <li><a class="white-text" href="#!">Link 2</a></li>
-                    <li><a class="white-text" href="#!">Link 3</a></li>
-                    <li><a class="white-text" href="#!">Link 4</a></li>
-                </ul>
-            </div>
+            {#            <div class="col l3 s12">#}
+            {#                <h5 class="white-text">Settings</h5>#}
+            {#                <ul>#}
+            {#                    <li><a class="white-text" href="#!">Link 1</a></li>#}
+            {#                    <li><a class="white-text" href="#!">Link 2</a></li>#}
+            {#                    <li><a class="white-text" href="#!">Link 3</a></li>#}
+            {#                    <li><a class="white-text" href="#!">Link 4</a></li>#}
+            {#                </ul>#}
+            {#            </div>#}
             <div class="col l3 s12">
                 <h5 class="white-text">Connect</h5>
                 <ul>
-                    <li><a class="white-text" href="#!">Link 1</a></li>
+                    <li><a class="white-text" href="#!">联系我们</a></li>
                     <li><a class="white-text" href="#!">Link 2</a></li>
                     <li><a class="white-text" href="#!">Link 3</a></li>
                     <li><a class="white-text" href="#!">Link 4</a></li>
@@ -142,7 +159,7 @@
     </div>
     <div class="footer-copyright">
         <div class="container">
-            Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+            Copyright <a class="brown-text text-lighten-3" href="#">Chumeng</a>
         </div>
     </div>
 </footer>
