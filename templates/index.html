@@ -13,9 +13,15 @@
                 <div class="background">
                     <img src="{% static 'assets/img/material-design.jpg' %}" style="width: 285px; height: 200px;">
                 </div>
-                <a href="#user"><img class="circle" src="{{ user.headshot }}"></a>
-                <a href="#name"><span class="white-text name">{{ user.username }}</span></a>
-                <a href="#email"><span class="white-text email">{{ user.email }}</span></a>
+                {% if user.is_authenticated %}
+                    <a href="#user"><img class="circle" src="{{ user.headshot.url }}"></a>
+                    <a href="#name"><span class="white-text name">{{ user.username }}</span></a>
+                    <a href="#email"><span class="white-text email">{{ user.email }}</span></a>
+                {% else %}
+                    <img class="circle" src="{% static 'assets/img/corgi.jpg' %}">
+                    <span class="white-text name">游客</span>
+                    <a id="visitor-register"><span class="white-text">注册 了解更多～</span></a>
+                {% endif %}
             </div>
         </li>
         <li><a class="waves-effect" href="#!"><i class="material-icons">cloud</i>为你推荐</a></li>
@@ -43,8 +49,6 @@
         </li>
 
     </ul>
-    {#  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>#}
-
 
     <div class="divider"></div>
     <div class="container main">
@@ -56,7 +60,7 @@
                 <div class="grid-item infinite-item">
                     <div class="card hoverable medium grey lighten-5 z-depth-1">
                         <div class="card-image">
-                            <img class="activator" src="{{ article.cover.get_absolute_url }}">
+                            <img class="activator card-image-cover" src="{{ article.cover.get_absolute_url }}">
                             {#                            <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i#}
                             {#                                    class="material-icons">add</i></a>#}
                         </div>

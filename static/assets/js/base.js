@@ -8,6 +8,7 @@ $(document).ready(function () {
     $('.fixed-action-btn').floatingActionButton();
     $('.materialboxed').materialbox();
     $('.sidenav').sidenav();
+    $('input#username').characterCounter();
 
 
     var elems = document.querySelectorAll('.dropdown-trigger');
@@ -28,7 +29,7 @@ $(document).ready(function () {
     $('.like').on('click', function () {
 
         if ($(this).text() === 'favorite_border') {
-            $('.like').fadeOut(100, function () {
+            $(this).fadeOut(100, function () {
                 $(this).text('favorite').fadeIn(10);
             });
             M.toast({
@@ -39,7 +40,7 @@ $(document).ready(function () {
                 classes: 'pink rounded',
             });
         } else {
-            $('.like').fadeOut(100, function () {
+            $(this).fadeOut(100, function () {
                 $(this).text('favorite_border').fadeIn(10);
             });
             M.toast({

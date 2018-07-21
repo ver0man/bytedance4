@@ -5,6 +5,11 @@
  */
 
 function registerAjax() {
+    if (!$('#tc_checkbox').is(':checked')) {
+        $('#tab-register> .alert').remove();
+        $('#tc_checkarea').after($('<div class="red-text alert" role="alert"></div>').text('You must agree Terms and Conditions to register in our site.'));
+        return
+    }
     // Get CSRF cookie
     var csrftoken = Cookies.get('csrftoken');
 
@@ -32,14 +37,24 @@ function registerAjax() {
                 // Clean up the password fields..
                 $('input[type="password"]').val('');
                 // Remove the any previous alert..
-                $('#registerFormBox > .alert').remove();
+                $('#tab-register> .alert').remove();
                 // Append the alert messages to the register modal
-                $('#registerFormBox').append('<div class="red-text" role="alert">\n <strong>' + result.message + '</strong>\n</div>');
+                var alert = $('<ul></ul>');
+                var result_obj = JSON.parse(result);
+                for (let key in result_obj) {
+                    if (result_obj.hasOwnProperty(key)) {
+                        let key_msg = result_obj[key];
+                        key_msg.forEach(function (item) {
+                            alert.append($('<li></li>').text(item.message));
+                        })
+                    }
+                }
+                $('#register-form').after($('<div class="red-text alert" role="alert"></div>').append(alert));
             }
         },
     }).fail(function () {
         $('input[type="password"]').val('');
-        alert('注册失败')
+        alert('System error!');
     })
 }
 
@@ -64,17 +79,5 @@ function loginAjax() {
         }
     });
 
-// // /*   Simulate error message from the server   */
-// //      shakeModal();
-// }
-//
-// function shakeModal(){
-//     $('#modal-login .modal-dialog').addClass('shake');
-//              $('.login_error').addClass('alert alert-danger').html("Invalid email/password combination");
-//              $('input[type="password"]').val('');
-//              setTimeout( function(){
-//                 $('#modal-login .modal-dialog').removeClass('shake');
-//     }, 1000 );
 }
 
-   

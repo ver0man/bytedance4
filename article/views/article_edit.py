@@ -1,10 +1,6 @@
-import mimetypes
-from wsgiref.util import FileWrapper
-
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse, HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.http import JsonResponse
+from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, FormView
 from el_pagination.decorators import page_template
 
@@ -66,28 +62,6 @@ class CoverImageUploadView(LoginRequiredMixin, CreateView):
 
     def form_invalid(self, form):
         return redirect('editor')
-
-
-@login_required
-def image_detail(request, slug):
-    """
-    Return images url to be rendered in the editor area
-    :param request:
-    :param slug:
-    :return:
-    """
-    if request.method == 'GET':
-        # Get image object
-        image = get_object_or_404(Images, slug=slug)
-        # ImageField is File object, can be open
-        wrapper = FileWrapper(image.image.open())
-        # Use mimetypes to get file type
-        content_type = mimetypes.guess_type(str(image))[0]
-        # Return image response
-        response = HttpResponse(wrapper, content_type=content_type)
-        response['Content-Length'] = image.image.size
-        response['Content-Disposition'] = "attachment; filename={}".format(str(image))
-        return response
 
 
 class ArticleCRUDView(LoginRequiredMixin, FormView):

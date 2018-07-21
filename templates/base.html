@@ -21,35 +21,24 @@
         <div class="nav-wrapper container">
             <a id="logo-container" href="{% url 'index' %}" class="brand-logo white-text"><img
                     src="{% static 'assets/img/11ye_Logo.png' %}" style="height: 60px; width: 176px;"></a>
-            {#            <a id="logo-container" href="{% url 'index' %}" class="brand-logo black-text">一叶</a>#}
-            {#            <form>#}
-            {#                <div class="input-field">#}
-            {#                    <input id="search" type="search" required>#}
-            {#                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>#}
-            {#                    <i class="material-icons">close</i>#}
-            {#                </div>#}
-            {#            </form>#}
-            <ul id="dropdown_account" class="dropdown-content">
-                <li><a href="#!">图文管理</a></li>
-                <li><a href="#!">账号管理</a></li>
-                <li class="divider"></li>
-                <li><a href="#!">three</a></li>
-            </ul>
             <ul class="right hide-on-med-and-down">
-
                 {% if user.is_authenticated %}
+                    <ul id="dropdown_account" class="dropdown-content">
+                        <li><a href="#!">图文管理</a></li>
+                        <li><a href="{% url 'user_detail' pk=user.pk %}">账号管理</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#!">three</a></li>
+                    </ul>
+
                     <li><a class="dropdown-trigger white-text" href="#!"
                            data-target="dropdown_account">{{ user.username }}<i
                             class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a href="{% url "user_logout" %}" class="white-text">登出</a></li>
-
                 {% else %}
                     <li>
                         <button data-target="modal-login" class="btn modal-trigger">登录/注册</button>
                     </li>
                 {% endif %}
-
-
             </ul>
 
             <ul id="nav-mobile" class="sidenav">
@@ -89,12 +78,6 @@
                     <input id="password" type="password" class="validate" name="password">
                     <label for="password">请输入密码</label>
                 </div>
-                <div class="col s12">
-                    <label>
-                        <input type="checkbox"/><span>I agree with Terms and Conditions </span>
-                    </label>
-                    <p class="login_error"></p>
-                </div>
             </form>
             <div class="modal-footer center-align">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">退出</a>
@@ -104,6 +87,11 @@
 
         <div id="tab-register" class="input-field col s12">
             <form id="register-form">{% csrf_token %}
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">email</i>
+                    <input id="username" type="text" name="username" data-length="16">
+                    <label for="username_inline2">请输入用户名</label>
+                </div>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">email</i>
                     <input id="email_inline2" type="email" class="validate" name="email">
@@ -118,9 +106,15 @@
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock</i>
                     <input id="password2" type="password" class="validate" name="password2">
-                    <label for="password">请确认密码</label>
+                    <label for="password2">请再次输入，确认密码</label>
                 </div>
             </form>
+            <div id="tc_checkarea" class="col s12">
+                <label>
+                    <input type="checkbox" id="tc_checkbox"/><span>I agree with Terms and Conditions</span>
+                    <span><a href="{% url 'terms' %}" target="_blank"> Detail</a></span>
+                </label>
+            </div>
             <div class="modal-footer center-align">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">退出</a>
                 <button class="waves-effect waves-light btn" type="submit" onclick="registerAjax()">注册</button>

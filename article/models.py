@@ -17,8 +17,7 @@ from article.helper.helper import unique_slugify
 
 
 def get_user_profile_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'user_{0}/profile/{1}'.format(instance.user.id, filename)
+    return 'user_{0}/profile/{1}'.format(instance.id, filename)
 
 
 class BaseProfile(AbstractUser):
@@ -27,7 +26,7 @@ class BaseProfile(AbstractUser):
     """
     mobile = models.CharField(max_length=30, blank=True)
     location = models.CharField(max_length=100, blank=True)
-    headshot = models.ImageField(upload_to=get_user_profile_path, blank=True, default='default_headshot.jpg')
+    headshot = models.ImageField(upload_to=get_user_profile_path, blank=True)
     time_registered = models.DateTimeField(auto_now_add=True)
 
 

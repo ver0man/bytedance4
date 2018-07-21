@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'el_pagination',
-    'sass_processor',
 
     # Current app
     'article',

@@ -11,6 +11,12 @@ $(document).ready(function () {
         }
     });
 
+    $('#visitor-register').on('click', function () {
+        var elem = document.querySelector('#modal-login');
+        var instance = M.Modal.getInstance(elem);
+        instance.open();
+    });
+
     var $grid = $('.grid').masonry({
         // options
         itemSelector: '.grid-item',
