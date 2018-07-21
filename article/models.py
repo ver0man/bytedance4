@@ -184,7 +184,7 @@ class Labels(models.Model):
     """
     Article Labels for future NLTK use
     """
-    name = models.CharField('name', max_length=50)
+    name = models.CharField('name', max_length=100)
     articles = models.ManyToManyField('Article')
 
     def __str__(self):

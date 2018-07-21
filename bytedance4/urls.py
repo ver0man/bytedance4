@@ -32,7 +32,10 @@ urlpatterns = [
 
     # For articles
     path('articles/<slug:slug>/', ArticleDetailView.as_view(), name='article-detail'),
-    path('articles/<slug:slug>/comments/', CommentPostView.as_view(), name='article_comment'),
+    # path('articles/<slug:slug>/', article_comments_view, name='article-detail'),
+    # path('articles/<slug:slug>/load_comments/', article_comments_view, name='article_load_comment'),
+
+    path('articles/<slug:slug>/post_comments/', CommentPostView.as_view(), name='article_post_comment'),
 
     # For User Editing
     # path('editor/', EditorView.as_view(), name='editor'),

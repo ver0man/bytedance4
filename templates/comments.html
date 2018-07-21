@@ -1,34 +1,32 @@
 {% load static %}
+{% load el_pagination_tags %}
 
 <div class="section" id="comments">
     {% for comment in comments %}
-        <div class="comment col s12 m12" id="comment{{ comment.pk }}">
-            <div class="card grey lighten-5 z-depth-1">
-                <div class="card-content black-text">
-                    {#                      <span class="card-title">Card Title</span>#}
-                    <div class="row valign-wrapper">
-                        {% if comment.parent_comment %}
-                            <div class="col s10 offset-l2">
-                                <blockquote>{{ comment.parent_comment.comment | safe }}</blockquote>
-                            </div>
-                        {% endif %}
+        <div class="divider"></div>
+        <div class="row comment" id="comment{{ comment.pk }}">
+            <div class="col s1 m1">
+                <img src="{% static 'assets/img/img_placeholder.jpg' %}" alt=""
+                     class="circle responsive-img"
+                     style="height: 50px; width: 50px;">
+            </div>
+            <div class="col s11 m11">
+                <span class="grey-text"
+                      style="float: right; margin-top: 5px;">{{ comment.comment_time|date:"M d Y P" }}</span>
 
-                        <div class="col s2 m2">
-                            <img src="{% static 'assets/img/img_placeholder.jpg' %}" alt=""
-                                 class="circle responsive-img"
-                                 style="height: 50px; width: 50px;">
-                        </div>
-                        <div class="col s10 m10">
-                            {{ comment.comment | safe }}
-                        </div>
+                <h6 style="font-weight: bold;">{{ comment.profile.username }}</h6>
+                {% if comment.parent_comment %}
+                    <div class="grey lighten-4 parent_comment">
+                        <span style="font-weight: bold;">@{{ comment.parent_comment.profile.username }}:</span> {{ comment.parent_comment.comment }}
                     </div>
-                </div>
-                <div class="card-action">
-                    <a class="waves-effect waves-teal btn-flat"><i class="material-icons">thumb_up</i></a>点赞
-                    <a class="waves-effect waves-teal btn-flat reply" name="reply"><i
-                            class="material-icons">reply</i></a>回复
-                    <a class="waves-effect waves-teal btn-flat"><i class="material-icons">favorite</i></a>
-                    <a class="waves-effect waves-teal btn-flat"><i class="material-icons">share</i></a>分享
+                {% endif %}
+                {{ comment.comment | safe }}
+                <div style="font-size: small;">
+                    <a class="waves-effect waves-light grey-text text-darken-1"><i class="material-icons comment_like">favorite_border</i>
+                        点赞 </a>
+                    <a class="waves-effect waves-light grey-text text-darken-1 reply" name="reply"
+                       style="margin-left: 1rem;"><i
+                            class="material-icons">reply</i> 回复 </a>
                 </div>
             </div>
         </div>

@@ -6,7 +6,7 @@
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link href="https://cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="{% static 'assets/css/article_detail.css' %}">
+    <link href="{% static 'assets/css/article_detail.css' %}" rel="stylesheet">
 
 {% endblock %}
 
@@ -15,20 +15,48 @@
         <div class="row">
             <div class="col m12" id="article">
                 <h3 class="center">{{ article.title }}</h3>
-                <h5 class="center">{{ article.author }}</h5>
-
-                {{ article.body | safe }}
-
+                <div class="article-info" style="font-size: small;">
+                    <span>{{ article.created_time|date:"M d Y P" }} | </span>
+                    <span> 121 阅读，24 留言, 4 赞 | </span>
+                    <span> 相关股票：$BOA </span>
+                </div>
+                <div class="divider" style="margin-top: 5px;"></div>
+                <div class="section row valign-wrapper">
+                    <div class="divider"></div>
+                    <div class="col s2">
+                        <img src="{{ article.author.headshot }}" alt="" class="circle responsive-img">
+                    </div>
+                    <div class="col s8">
+                        <p>{{ article.author }}</p><span class="black-text">
+                            作者简介
+                          </span>
+                    </div>
+                    <div class="col s2">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">关注
+                            <i class="material-icons right">add</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="divider"></div>
             </div>
         </div>
+
+        <div class="row">
+
+            {{ article.body | safe }}
+
+        </div>
+
         <div class="row">
             <div class="col s6">
-                <i id="like-button" class="fa fa-2x fa-heart-o not-liked"></i>
+                <span> 121 阅读，24 留言, 4 赞 </span>
             </div>
-        </div>
-        <div class="row">
-            <div class="col s6">X转发，X赞</div>
-            <div class="col s6">转发、赞、收藏</div>
+            <div class="col s3 offset-s3 right-align">
+                <a class="waves-effect waves-light grey-text text-darken-1"><i
+                        class="material-icons like">favorite_border</i> 赞 </a>
+                <a class="waves-effect waves-light grey-text text-darken-1"><i class="material-icons bookmark">bookmark_border</i>
+                    收藏 </a>
+            </div>
         </div>
         <div class="divider"></div>
         <div class="section">

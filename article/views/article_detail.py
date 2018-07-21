@@ -7,7 +7,23 @@ from django.views.generic import DetailView, CreateView
 from article.models import Article, Comments
 
 
-# Create your views here.
+# TODO: Add comment pagination
+# # For listing cover images ajax view
+# @page_template('comments.html')  # just add this decorator
+# def article_comments_view(request, template='comments.html', extra_context=None, **kwargs):
+#     if 'slug' in kwargs.keys():
+#         article = Article.objects.get(slug=kwargs['slug'])
+#     else:
+#         return render(request, 'GET404.html')
+#
+#     # Build context
+#     context = {
+#         'comments': article.comments_set.all().order_by('-comment_time', ),
+#     }
+#     pdb.set_trace()
+#     if extra_context is not None:
+#         context.update(extra_context)
+#     return render(request, template, context)
 
 
 class ArticleDetailView(DetailView):
@@ -18,7 +34,7 @@ class ArticleDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         # All comments
         article = self.get_object()
-        comments = article.comments_set.all().order_by('comment_time')
+        comments = article.comments_set.all().order_by('-comment_time')
 
         context['comments'] = comments
         return context
@@ -41,7 +57,7 @@ class CommentPostView(CreateView):
 
         # Find articles using unique slug in the url
         url_string = self.request.path.split('/')
-        comment.article = Article.objects.get(slug=url_string[url_string.index('comments') - 1])
+        comment.article = Article.objects.get(slug=url_string[url_string.index('post_comments') - 1])
 
         # Find parent comment if exist
         if 'parent' in self.request.POST.keys():
@@ -51,7 +67,7 @@ class CommentPostView(CreateView):
         comment.save()
 
         # Return response
-        results = {'comments': comment.article.comments_set.all().order_by('comment_time')}
+        results = {'comments': comment.article.comments_set.all().order_by('-comment_time')}
 
         return render_to_response(self.template_name, results)
 

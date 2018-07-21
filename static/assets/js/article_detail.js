@@ -17,6 +17,18 @@ $(document).ready(function () {
 
     $('.materialboxed').materialbox();
 
+    $.ajax({
+        type: 'POST',
+        url: 'load_comments/',
+        data: '',
+        success: function (result) {
+            $('#comments').html(result);
+            quill.setContents([{insert: '\n'}]);
+        },
+        fail: function (result) {
+            $('#modal-login').open();
+        }
+    });
 
     var quill = new Quill('#quill_editor', {
         modules: {
@@ -52,7 +64,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: 'comments/',
+            url: 'post_comments/',
             data: data,
             success: function (result) {
                 $('#comments').html(result);
@@ -69,7 +81,7 @@ $(document).ready(function () {
         let comment_card = $(this).closest('.comment');
         let comment_id = comment_card.attr('id').replace('comment', '');
 
-        if (comment_card.has('#quill_editor' + comment_id).length) {
+        if (comment_card.next().has('#quill_editor' + comment_id).length) {
             $('#reply_section' + comment_id).remove();
         } else {
             let reply_quill = $("<div/>", {
@@ -85,7 +97,7 @@ $(document).ready(function () {
 
             let reply_section = $("<div/>", {class: 'section', id: "reply_section" + comment_id});
 
-            comment_card.append(reply_section.append(reply_quill, reply_button));
+            comment_card.after(reply_section.append(reply_quill, reply_button));
 
             var quill = new Quill('#quill_editor' + comment_id, {
                 modules: {
@@ -103,28 +115,45 @@ $(document).ready(function () {
 
     });
 
-    // Display comments
-    // preciousContent.innerHTML = JSON.stringify(delta);
-    var like_button = document.getElementById("like-button");
-    if (like_button) {
-        like_button.addEventListener("click", doLikeButton);
-    }
-
-    function doLikeButton(e) {
-        toggleButton(e.target);
-    }
-
-    function toggleButton(button) {
-        button.classList.remove('liked-shaked');
-        button.classList.toggle('liked');
-        button.classList.toggle('not-liked');
-        button.classList.toggle('fa-heart-o');
-        button.classList.toggle('fa-heart');
-
-        if (button.classList.contains("liked")) {
-            button.classList.add('liked-shaked');
+    $(document).on('click', '.comment_like', function () {
+        if ($(this).text() === 'favorite_border') {
+            $(this).fadeOut(100, function () {
+                $(this).text('favorite').fadeIn(10);
+            });
+            M.toast({
+                html: $('<div class="flow-text">Liked~</div>'),
+                displayLength: 2000,
+                inDuration: 300,
+                outDuration: 375,
+                classes: 'pink rounded',
+            });
+        } else {
+            $(this).fadeOut(100, function () {
+                $(this).text('favorite_border').fadeIn(10);
+            });
+            M.toast({
+                html: $('<div class="flow-text">Unliked</div>'),
+                displayLength: 2000,
+                inDuration: 300,
+                outDuration: 375,
+                classes: 'pink rounded',
+            })
         }
-    }
+    });
+
+    // function materialize_pagination() {
+    //     let page_current = $('#article_comments_pagination > .endless_page_current > strong').html();
+    //     $('#article_comments_pagination > .endless_page_current').replaceWith("<li class='active'><a href='#!'>" + page_current + "</a></li>");
+    //     $('#article_comments_pagination > .endless_page_link').wrap("<li class='waves-effect'></li>");
+    // }
+    //
+    // $.endlessPaginate({
+    //     onCompleted: function (context, fragment) {
+    //         materialize_pagination();
+    //     }
+    // });
+    //
+    // materialize_pagination();
 
 });
 

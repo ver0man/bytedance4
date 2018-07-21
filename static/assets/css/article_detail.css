@@ -1,29 +1,28 @@
 /* TODO: This css does not load into the page.. or somehow it did not work properly */
 /* Tell Quill not to scroll */
 
-.container {
-    margin: 0 auto;
-    max-width: 1280px;
-    width: 90%;
-}
+/*.container {*/
+/*margin: 0 auto;*/
+/*max-width: 1280px;*/
+/*width: 80%;*/
+/*}*/
 
-@media only screen and (min-width: 601px) {
-    .container {
-        width: 90%;
-    }
-}
+/*@media only screen and (min-width: 601px) {*/
+/*.container {*/
+/*width: 80%;*/
+/*}*/
+/*}*/
 
 @media only screen and (min-width: 993px) {
     .container {
-        width: 90%;
+        width: 80%;
     }
-}
 
+}
 
 #quill_editor {
     height: auto;
     min-height: 100%;
-    padding: 50px;
 }
 
 #quill_editor .ql-editor {
@@ -31,9 +30,26 @@
     overflow-y: visible;
 }
 
-/* Specify our own scrolling container */
+/*!* Specify our own scrolling container *!*/
 #scrolling-container {
     height: 100%;
     min-height: 100%;
     overflow-y: auto;
 }
+
+.material-icons {
+    vertical-align: middle;
+    display: inline-flex;
+}
+
+div.parent_comment {
+    margin: 20px 0;
+    padding-left: 1.5rem;
+    border-left: 3px solid;
+}
+
+/*.valign-wrapper {*/
+/*vertical-align: middle;*/
+/*}*/
+
+
