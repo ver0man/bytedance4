@@ -1,5 +1,6 @@
 import mimetypes
 import os
+import re
 from wsgiref.util import FileWrapper
 
 from django.conf import settings
@@ -44,9 +45,14 @@ def user_register(request):
 
 def user_login(request):
     if request.method == 'POST':
-
+        email_regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
         if BaseProfile.objects.filter(email=request.POST['email']).exists():
-            base_user = BaseProfile.objects.get(email=request.POST['email'])
+            if re.match(email_regex, request.POST['email']):
+                base_user = BaseProfile.objects.get(email=request.POST['email'])
+            else:
+                base_user = BaseProfile.objects.get(username=request.POST['email'])
+
+            # Authenticate the user
             user = authenticate(username=base_user.username, password=request.POST['password'])
 
             if user is not None:

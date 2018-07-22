@@ -17,18 +17,18 @@ $(document).ready(function () {
 
     $('.materialboxed').materialbox();
 
-    $.ajax({
-        type: 'POST',
-        url: 'load_comments/',
-        data: '',
-        success: function (result) {
-            $('#comments').html(result);
-            quill.setContents([{insert: '\n'}]);
-        },
-        fail: function (result) {
-            $('#modal-login').open();
-        }
-    });
+    // $.ajax({
+    //     type: 'POST',
+    //     url: 'load_comments/',
+    //     data: '',
+    //     success: function (result) {
+    //         $('#comments').html(result);
+    //         quill.setContents([{insert: '\n'}]);
+    //     },
+    //     fail: function (result) {
+    //         $('#modal-login').open();
+    //     }
+    // });
 
     var quill = new Quill('#quill_editor', {
         modules: {

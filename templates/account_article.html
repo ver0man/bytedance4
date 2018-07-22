@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block page_css %}
+    <link href="{% static 'assets/css/article_list.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block page_content %}
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+        <li>
+            <div class="user-view">
+                <div class="background">
+                    <img src="{% static 'assets/img/account_bg.jpg' %}" style="width: 285px; height: 200px;">
+                </div>
+                <img class="circle" src="{{ user.headshot.url }}">
+                <a href="{% url 'user_detail' %}"><span class="white-text name">{{ user.username }}</span></a>
+                <span class="white-text email">{{ user.email }}</span>
+            </div>
+        </li>
+        <li><a class="waves-effect" href="{% url 'user_articles' %}"><i class="material-icons">account_box</i>账户管理</a>
+        </li>
+        <li><a class="waves-effect grey lighten-3" href="{% url 'user_articles' %}"><i class="material-icons">inbox</i>文章管理</a>
+        </li>
+        {#        <li><a class="waves-effect" href="#!"><i class="material-icons">build</i>设置</a></li>#}
+        <li>
+            <div class="divider"></div>
+        </li>
+    </ul>
+    <div class="divider"></div>
+    <div class="container main">
+        <div class="grid infinite-container">
+            <div class="grid-sizer"></div>
+            <div class="gutter-sizer"></div>
+            {% for article in article_list %}
+                <div class="grid-item infinite-item">
+                    <div class="card hoverable medium grey lighten-5 z-depth-1">
+                        <div class="card-image">
+                            <img class="activator card-image-cover" src="{{ article.cover.get_absolute_url }}">
+                            {#                            <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i#}
+                            {#                                    class="material-icons">add</i></a>#}
+                        </div>
+                        <div class="card-fab">
+                            <a class="btn-floating halfway-fab waves-effect waves-light red"
+                               style="margin-right: 50px;"><i
+                                    class="material-icons like">favorite_border</i></a>
+                            <a class="btn-floating halfway-fab waves-effect waves-light blue"><i
+                                    class="material-icons bookmark">bookmark_border</i></a>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title"><h6><a class="grey-text text-darken-2"
+                                                            href="{{ article.get_absolute_url }}">{{ article.title }}</a></h6></span>
+                            <div class="article-label" style="padding-top: 15px; padding-bottom: 5px;">
+                                <div class="chip">苹果</div>
+                                <div class="chip">财报</div>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <div class="article-author" style="float: left;">
+                                <span>{{ user.username|truncatechars:9 }}, </span>
+                                <span style="text-align: left;">{{ article.created_time|date:"M d" }}</span>
+                            </div>
+                            <div class="article-statistics">
+                                <span class="article-view"><i
+                                        class="tiny material-icons">remove_red_eye</i> 623  </span>
+                                <span class="article-comment"><i class="tiny material-icons">comment</i> 40  </span>
+                                <span class="article-comment"><i class="tiny material-icons">thumb_up</i> 60  </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block page_scripts %}
+    <script src="{% static 'assets/js/article_list.js' %}"></script>
+{% endblock %}

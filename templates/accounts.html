@@ -11,40 +11,57 @@
         <li>
             <div class="user-view">
                 <div class="background">
-                    <img src="{% static 'assets/img/material-design.jpg' %}" style="width: 285px; height: 200px;">
+                    <img src="{% static 'assets/img/account_bg.jpg' %}" style="width: 285px; height: 200px;">
                 </div>
-                <a href="#user"><img class="circle" src="{{ user.headshot }}"></a>
-                <a href="#name"><span class="white-text name">{{ user.username }}</span></a>
-                <a href="#email"><span class="white-text email">{{ user.email }}</span></a>
+                <img class="circle" src="{{ user.headshot.url }}">
+                <a href="{% url 'user_detail' %}"><span class="white-text name">{{ user.username }}</span></a>
+                <span class="white-text email">{{ user.email }}</span>
             </div>
         </li>
-        <li><a class="waves-effect" href="#!"><i class="material-icons">cloud</i>为你推荐</a></li>
-        <li><a class="waves-effect" href="#!">热门文章</a></li>
-        <li><a class="waves-effect" href="#!">精选</a></li>
-        <li><a class="waves-effect" href="#!">我的收藏</a></li>
+        <li><a class="waves-effect grey lighten-3" href="{% url 'user_articles' %}"><i class="material-icons">account_box</i>账户管理</a>
+        </li>
+        <li><a class="waves-effect" href="{% url 'user_articles' %}"><i class="material-icons">inbox</i>文章管理</a></li>
+        {#        <li><a class="waves-effect" href="#!"><i class="material-icons">build</i>设置</a></li>#}
         <li>
             <div class="divider"></div>
         </li>
-        <li><a class="subheader">投资组合</a></li>
-        <li class="no-padding">
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <a class="collapsible-header">我的组合<i class="material-icons">arrow_drop_down</i></a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li><a href="#!">$AAPL</a></li>
-                            <li><a href="#!">$JPM</a></li>
-                            <li><a href="#!">$SQ</a></li>
-                            <li><a href="#!">$ASML</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </li>
-
     </ul>
-    {#  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>#}
-
+    <div class="divider"></div>
+    <div class="container main">
+        <form id="update-form" action="{% url 'user_update' %}" method="post" style="padding-top: 3rem">{% csrf_token %}
+            <div class="row center-align">
+                <img class="circle" src="{{ user.headshot.url }}" style="width: 200px; height: 200px">
+            </div>
+            <div class="row">
+                <div class="input-field col s10 offset-s1">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="username" type="text" name="username" data-length="16" value="{{ user.username }}">
+                    <label for="username" class="active">用户名</label>
+                </div>
+                <div class="input-field col s10 offset-s1">
+                    <i class="material-icons prefix">email</i>
+                    <input id="email" type="email" class="validate" name="email" value="{{ user.email }}">
+                    <label for="email">邮箱</label>
+                    <span class="helper-text" data-error="邮箱格式错误" data-success="邮箱正确"></span>
+                </div>
+                <div class="input-field col s10 offset-s1">
+                    <i class="material-icons prefix">lock</i>
+                    <input id="password1" type="password" class="validate" name="password1">
+                    <label for="password1">新密码</label>
+                </div>
+                <div class="input-field col s10 offset-s1">
+                    <i class="material-icons prefix">lock</i>
+                    <input id="password2" type="password" class="validate" name="password2">
+                    <label for="password2">请再次输入新密码</label>
+                </div>
+            </div>
+        </form>
+        <div class="row center-align">
+            <button class="btn btn-large waves-effect waves-light" type="submit" id="update_account">更新
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </div>
 
 {% endblock %}
 

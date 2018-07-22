@@ -23,10 +23,12 @@ from article.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     # For user authentication
-    path('accounts/<int:pk>/', UserDetailView.as_view(), name='user_detail'),
+    path('accounts/', UserDetailView.as_view(), name='user_detail'),
+    path('accounts/update/', UserUpdateView.as_view(), name='user_update'),
     path('accounts/login/', user_login, name='user_login'),
     path('accounts/register/', user_register, name='user_register'),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='user_logout'),
+    path('accounts/articles/', UserArticlesView.as_view(), name='user_articles'),
 
     # For listing all the articles
     path('', ArticleListView.as_view(), name='index'),

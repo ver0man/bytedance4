@@ -24,10 +24,10 @@
             <ul class="right hide-on-med-and-down">
                 {% if user.is_authenticated %}
                     <ul id="dropdown_account" class="dropdown-content">
-                        <li><a href="#!">图文管理</a></li>
-                        <li><a href="{% url 'user_detail' pk=user.pk %}">账号管理</a></li>
+                        <li><a href="{% url 'user_articles' %}">图文管理</a></li>
+                        <li><a href="{% url 'user_detail' %}">账号管理</a></li>
                         <li class="divider"></li>
-                        <li><a href="#!">three</a></li>
+                        {#                        <li><a href="#!">设置</a></li>#}
                     </ul>
 
                     <li><a class="dropdown-trigger white-text" href="#!"
@@ -56,11 +56,11 @@
 
 <!-- Login/Register Modal Structure -->
 
-<div id="modal-login" class="modal">
+<div id="modal-login" class="modal large">
     <div class="modal-content">
         <div class="col s12">
-            <ul class="tabs center-align" style="margin-bottom: 3rem">
-                <li class="tab col s3"><a class="active" href="#tab-login"><h5>登录</h5></a></li>
+            <ul class="tabs center-align" style="margin-bottom: 1rem">
+                <li class="tab col s3 offset-s3"><a class="active" href="#tab-login"><h5>登录</h5></a></li>
                 <li class="tab col s3"><a href="#tab-register"><h5>注册</h5></a></li>
             </ul>
         </div>
@@ -70,7 +70,7 @@
                 <div class="input-field col s12">
                     <i class="material-icons prefix">email</i>
                     <input id="email_inline" type="email" class="validate" name="email">
-                    <label for="email_inline">请输入邮箱</label>
+                    <label for="email_inline">请输入邮箱或昵称</label>
                     <span class="helper-text" data-error="格式错误" data-success="格式正确"></span>
                 </div>
                 <div class="input-field col s12">
@@ -85,23 +85,23 @@
             </div>
         </div>
 
-        <div id="tab-register" class="input-field col s12">
+        <div id="tab-register" class="col s12">
             <form id="register-form">{% csrf_token %}
                 <div class="input-field col s12">
-                    <i class="material-icons prefix">email</i>
+                    <i class="material-icons prefix">account_circle</i>
                     <input id="username" type="text" name="username" data-length="16">
-                    <label for="username_inline2">请输入用户名</label>
+                    <label for="username">请输入用户名</label>
                 </div>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">email</i>
-                    <input id="email_inline2" type="email" class="validate" name="email">
-                    <label for="email_inline2">请输入邮箱</label>
+                    <input id="email" type="email" class="validate" name="email">
+                    <label for="email">请输入邮箱</label>
                     <span class="helper-text" data-error="邮箱格式错误" data-success="邮箱正确"></span>
                 </div>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock</i>
                     <input id="password1" type="password" class="validate" name="password1">
-                    <label for="password">请输入密码</label>
+                    <label for="password1">请输入密码</label>
                 </div>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock</i>
